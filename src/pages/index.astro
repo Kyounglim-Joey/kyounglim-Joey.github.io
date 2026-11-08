@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import ProjectList from '../components/ProjectList.astro';
+import Gallery from '../components/Gallery.astro';
 import { LINKS } from '../config/site';
 import { projects, researchInterests, experience, experienceHighlights, degrees, news } from '../data/content';
 const hana = experience[0];
@@ -32,6 +33,7 @@ const ordered = [...projects.filter((p) => p.featured), ...projects.filter((p) =
       <a href={`mailto:${LINKS.email}`} data-loc="home-cta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email</a>
       <a href={LINKS.github} rel="noopener" data-loc="hero"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m8 9-4 3 4 3M16 9l4 3-4 3"/></svg>GitHub</a>
     </div>
+    <Gallery title="Photos" compact inline moreHref="/about/#gallery-title" />
   </section>
 
   <section class="card box" aria-label="Education and honors">

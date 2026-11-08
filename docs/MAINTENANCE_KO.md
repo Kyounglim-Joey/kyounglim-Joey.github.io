@@ -35,6 +35,10 @@
 | 이름·직함·한 줄 소개 | `src/config/site.ts` → `PROFILE`의 `nativeName`, `positions`, `tagline` |
 | 홈 화면 Hana Bank 요약 6칸 | `src/data/content.ts` → `experienceHighlights` |
 
+## 1-1-1. CV & Contact 아이콘
+- Gmail/GitHub/LinkedIn 공식 아이콘을 쓰려면 각 회사 브랜드 페이지에서 받은 파일을 `public/icons/gmail.svg`, `github.svg`, `linkedin.svg`(또는 .png)로 넣으세요. 없으면 기본 선 아이콘이 표시됩니다 (`src/pages/cv.astro`).
+- 태극기: `src/components/FlagKR.astro`
+
 ## 1-2. About 페이지 사진 갤러리
 `docs/GALLERY_DRIVE_KO.md` 를 참고하세요.
 

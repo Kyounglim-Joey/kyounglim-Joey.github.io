@@ -25,22 +25,22 @@ const steps = [
   },
 ];
 ---
-<Base title="About" description="Background of Kyounglim Cho: philosophy, machine learning, and security engineering in banking.">
-  <header>
+<Base sheet={false} title="About" description="Background of Kyounglim Cho: philosophy, machine learning, and security engineering in banking.">
+  <header class="card box page-intro">
     <h1>About</h1>
     <p>A longer version of my background and why I am applying to graduate school.</p>
   </header>
 
-  <section aria-labelledby="bg">
+  <section class="card box" aria-labelledby="bg">
     <h2 id="bg">Background</h2>
     <ul class="dated">
-      {steps.map((s) => (
+      {steps.reverse().map((s) => (
         <li><span class="d">{s.when}</span><div><h3>{s.title}</h3><p>{s.text}</p></div></li>
       ))}
     </ul>
   </section>
 
-  <section aria-labelledby="why">
+  <section class="card box" aria-labelledby="why">
     <h2 id="why">Why graduate school</h2>
     <p>
       Working in a bank has shown me how security controls behave in production, under audit, and when they fail.
@@ -54,12 +54,12 @@ const steps = [
     </p>
   </section>
 
-  <section aria-labelledby="ri-title" data-track-view="research_interests">
+  <section class="card box" aria-labelledby="ri-title" data-track-view="research_interests">
     <h2 id="ri-title">Research interests</h2>
     <ul>
       {researchInterests.map((r) => <li><strong>{r.title}</strong>: {r.text}</li>)}
     </ul>
   </section>
 
-  <Gallery title="Photos" />
+  <Gallery title="Photos" boxed />
 </Base>

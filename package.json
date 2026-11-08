@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "predev": "node scripts/sync-photos.mjs",
     "dev": "astro dev",
     "prebuild": "node scripts/sync-photos.mjs",
     "build": "astro build",

@@ -71,7 +71,7 @@ export const experience = [
     ] as ExpGroup[],
   },
   {
-    org: 'Sundosoft Co., Ltd.',
+    org: 'Sundosoft',
     place: 'Seoul, South Korea',
     title: 'Data Analyst',
     unit: 'Intelligent Information Business Division',
@@ -148,7 +148,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: 'et5-korean-summarization',
-    thumb: '/images/projects/thumb-et5.jpg',
+    thumb: '/images/projects/thumb-et5.png',
     result: 'BERTScore F1 0.8391 on the validation split; Top Excellence Award (2021).',
     name: 'et5_summarization',
     title: 'Korean Text Summarization for Literacy Training',
@@ -215,7 +215,7 @@ export const projects: Project[] = [
     },
     figures: [
       {
-        src: '/images/projects/et5-service-ui.jpg',
+        src: '/images/projects/et5-service-ui.png',
         alt: 'Screenshot of the summarization web service with a passage, a learner summary box, a timer, the machine summary, and the score area. Interface text is in Korean.',
         caption: 'Summary view of the web service, from the project slides (interface in Korean).',
         width: 1200,
@@ -398,7 +398,7 @@ export const projects: Project[] = [
 ];
 
 /* ------------------------------------------------------------------ */
-/* Education & training                                                */
+/* Education & Training                                                */
 /* ------------------------------------------------------------------ */
 
 export const degrees = [
@@ -499,7 +499,7 @@ export const awards = [
 ];
 
 /* ------------------------------------------------------------------ */
-/* Skills & certifications                                             */
+/* Skills & Certifications                                             */
 /* ------------------------------------------------------------------ */
 
 export const skills = [
@@ -539,6 +539,6 @@ export const certifications = [
 
 export const languages = [
   { name: 'Korean', level: 'Native' },
-  { name: 'English', level: 'OPIc Intermediate High (2025)' },
-  { name: 'Chinese', level: 'HSK Level 4 (2025)' },
+  { name: 'English', level: 'TOEFL 4.5 (2026)' },
+  { name: 'Chinese', level: 'HSK 4 (2025)' },
 ];

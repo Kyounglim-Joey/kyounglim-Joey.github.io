@@ -2,30 +2,28 @@
 import Base from '../layouts/Base.astro';
 import { experience } from '../data/content';
 ---
-<Base title="Experience" description="Security engineering in banking (cryptography, HSM/KMS, MFA, Linux/Unix, network troubleshooting) and data analytics experience.">
-  <header>
+<Base sheet={false} title="Experience" description="Security engineering in banking (cryptography, HSM/KMS, MFA, Linux/Unix, network troubleshooting) and data analytics experience.">
+  <header class="card box page-intro">
     <h1>Experience</h1>
     <p>What I worked on and what I fixed. Internal details of my employer’s systems are left out.</p>
   </header>
 
   {experience.map((job) => (
-    <article class="entry">
-      <div class="head">
-        <h2 style="border:0;padding:0;margin:0">{job.org}</h2>
-        <p class="sub">{job.title} · {job.unit} · {job.place}</p>
+    <section class="card box" aria-label={job.org}>
+      <div class="card-head">
+        <h2 class="box-title">{job.org}</h2>
+        <span class="dates">{job.dates}</span>
       </div>
-      <div class="dates">{job.dates}</div>
-      <div class="body">
-        <p>{job.summary}</p>
-        {job.groups.map((g) => (
-          <div>
-            <h3 class="group-title">{g.area}</h3>
-            <ul>{g.items.map((i) => <li>{i}</li>)}</ul>
-          </div>
-        ))}
-      </div>
-    </article>
+      <p class="card-sub">{job.title} · {job.unit} · {job.place}</p>
+      <p>{job.summary}</p>
+      {job.groups.map((g) => (
+        <div>
+          <h3 class="group-title">{g.area}</h3>
+          <ul>{g.items.map((i) => <li>{i}</li>)}</ul>
+        </div>
+      ))}
+    </section>
   ))}
 
-  <p class="muted"><small>For confidentiality, system names, network layout, server counts, vendor products, and access policies are not disclosed.</small></p>
+  <p class="muted" style="margin:1rem .25rem 0"><small>For confidentiality, system names, network layout, server counts, vendor products, and access policies are not disclosed.</small></p>
 </Base>

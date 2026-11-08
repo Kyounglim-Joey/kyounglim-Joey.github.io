@@ -1,28 +1,45 @@
 ---
 /**
- * Photo carousel: 3 photos per view on desktop (2 on tablet, 1 on phone), prev/next buttons,
- * swipe/scroll, keyboard arrows. Data comes from scripts/sync-photos.mjs at build time.
+ * Photo carousel. Default: 3 per view on desktop (2 tablet, 1 phone).
+ * `compact`: small thumbnails, 5 per view on desktop (4 tablet, 3 phone) — used on the home page.
+ * Data comes from scripts/sync-photos.mjs at build time (profile.* is never included).
  */
 type Photo = { sm: string; lg: string; width: number; height: number; caption: string; alt: string };
-interface Props { title?: string }
-const { title = 'Photos' } = Astro.props;
+interface Props {
+  title?: string;
+  compact?: boolean;
+  /** Render the title as a small heading inside another card instead of a section h2. */
+  inline?: boolean;
+  /** Link shown next to the title, e.g. to the About page. */
+  moreHref?: string;
+  boxed?: boolean;
+}
+const { title = 'Photos', compact = false, inline = false, moreHref, boxed = false } = Astro.props;
 
 const mods = import.meta.glob<{ default: Photo[] }>('../data/gallery.generated.json', { eager: true });
 const photos: Photo[] = Object.values(mods)[0]?.default ?? [];
+const id = compact ? 'gallery-title-compact' : 'gallery-title';
 ---
 {photos.length > 0 && (
-  <section class="gallery-section" aria-labelledby="gallery-title">
-    <h2 id="gallery-title">{title}</h2>
-    <div class="gallery" data-gallery role="region" aria-roledescription="carousel" aria-label={title}>
+  <section class:list={['gallery-section', { 'gallery-inline': inline, 'card box': boxed }]} aria-labelledby={id}>
+    {inline ? (
+      <div class="gallery-head">
+        <h3 id={id}>{title}</h3>
+        {moreHref && <a href={moreHref} data-loc="home-photos">See all</a>}
+      </div>
+    ) : (
+      <h2 id={id} class={boxed ? 'box-title' : undefined}>{title}</h2>
+    )}
+    <div class:list={['gallery', { compact }]} data-gallery role="region" aria-roledescription="carousel" aria-label={title}>
       <div class="g-viewport" tabindex="0" aria-label="Use left and right arrow keys to browse photos">
         <ul class="g-track">
           {photos.map((p, i) => (
             <li aria-roledescription="slide" aria-label={`${i + 1} of ${photos.length}`}>
               <figure>
-                <a href={p.lg} target="_blank" rel="noopener" data-track="photo_open" data-loc="gallery">
+                <a href={p.lg} target="_blank" rel="noopener" data-track="photo_open" data-loc={compact ? 'home-gallery' : 'gallery'}>
                   <img src={p.sm} alt={p.alt} width={p.width} height={p.height} loading="lazy" decoding="async" />
                 </a>
-                {p.caption && <figcaption>{p.caption}</figcaption>}
+                {p.caption && !compact && <figcaption>{p.caption}</figcaption>}
               </figure>
             </li>
           ))}

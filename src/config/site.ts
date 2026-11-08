@@ -34,7 +34,7 @@ export const PROFILE = {
 export const LINKS = {
   github: 'https://github.com/Kyounglim-Joey',
   // TODO(Zoey): paste your LinkedIn profile URL. Leave empty to hide every LinkedIn link.
-  linkedin: '',
+  linkedin: 'https://www.linkedin.com/in/kyounglim-cho',
   email: 'philosophic.code@gmail.com',
   cv: '/cv/Kyounglim_Cho_CV.pdf',
 };

@@ -2,7 +2,6 @@
 import { SITE } from '../config/site';
 
 const nav = [
-  { href: '/', label: 'Home' },
   { href: '/about/', label: 'About' },
   { href: '/experience/', label: 'Experience' },
   { href: '/projects/', label: 'Projects' },
@@ -16,7 +15,7 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
 ---
 <header class="site-header">
   <div class="wrap bar">
-    <a class="brand" href="/">{SITE.name}</a>
+    <a class="brand" href="/">Home</a>
     <nav class="nav" aria-label="Primary">
       <ul id="primary-nav">
         {nav.map((item) => (

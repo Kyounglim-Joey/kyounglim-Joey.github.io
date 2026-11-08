@@ -2,23 +2,23 @@
 import Base from '../layouts/Base.astro';
 import { skills, certifications, languages } from '../data/content';
 ---
-<Base title="Skills & Certifications" description="Technical skills grouped by area, with where each was used, plus certifications and languages.">
-  <header>
-    <h1>Skills &amp; certifications</h1>
+<Base sheet={false} title="Skills & Certifications" description="Technical skills grouped by area, with where each was used, plus certifications and languages.">
+  <header class="card box page-intro">
+    <h1>Skills &amp; Certifications</h1>
     <p>Grouped by area, with where I used each one.</p>
   </header>
 
-  <section aria-labelledby="sk">
-    <h2 id="sk">Technical skills</h2>
+  <section class="card box" aria-labelledby="sk">
+    <h2 id="sk" class="box-title">Technical skills</h2>
     <dl class="kv">
       {skills.map((s) => (<><dt>{s.group}</dt><dd>{s.items.join(', ')}<br /><small class="muted">Used in: {s.evidence}</small></dd></>))}
     </dl>
   </section>
 
-  <section aria-labelledby="cert">
-    <h2 id="cert">Professional certifications</h2>
+  <section class="card box" aria-labelledby="cert">
+    <h2 id="cert" class="box-title">Professional certifications</h2>
     <div class="table-wrap">
-      <table>
+      <table style="margin:0">
         <thead><tr><th scope="col">Certification</th><th scope="col">Issuer</th><th scope="col">Date</th></tr></thead>
         <tbody>
           {certifications.map((c) => (
@@ -29,8 +29,8 @@ import { skills, certifications, languages } from '../data/content';
     </div>
   </section>
 
-  <section aria-labelledby="lang">
-    <h2 id="lang">Languages</h2>
+  <section class="card box" aria-labelledby="lang">
+    <h2 id="lang" class="box-title">Languages</h2>
     <dl class="kv">{languages.map((l) => (<><dt>{l.name}</dt><dd>{l.level}</dd></>))}</dl>
   </section>
 </Base>
