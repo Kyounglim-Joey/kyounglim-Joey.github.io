@@ -9,7 +9,11 @@ dist-test/
 
 # generated at build time by scripts/sync-photos.mjs
 public/gallery/
+public/generated/
 src/data/gallery.generated.json
+# photos/ is a local-preview folder: originals are never committed
+photos/*
+!photos/README.md
 # never commit Google credentials
 *service-account*.json
 gdrive-key*.json

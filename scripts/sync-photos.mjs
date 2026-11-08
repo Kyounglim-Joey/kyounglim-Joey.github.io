@@ -6,13 +6,17 @@
  * Source, in priority order:
  *   1. Google Drive folder  — when GDRIVE_SERVICE_ACCOUNT_KEY and GDRIVE_FOLDER_ID are set
  *                             (GitHub Actions secret + variable). Read-only service account.
- *   2. Local folder photos/ — any JPG/PNG/WebP you commit to the repository.
+ *   2. Local folder photos/ — for local preview only; its images are git-ignored, never committed.
  *   3. Nothing              — gallery section is simply not rendered.
+ *
+ * A file named profile.jpg / profile.png / profile.webp in the same source becomes the
+ * sidebar portrait (square-cropped) instead of a gallery photo.
  *
  * Every image is decoded and re-encoded with sharp: resized, auto-rotated, and ALL metadata
  * (EXIF, GPS location, camera serials) removed before it can be published.
  *
  * Output:
+ *   public/generated/profile.webp (sidebar portrait, 600×600) — if a profile.* file exists
  *   public/gallery/<id>-sm.webp   (carousel, 800 px wide)
  *   public/gallery/<id>-lg.webp   (click-through, max 1800 px)
  *   src/data/gallery.generated.json
@@ -26,12 +30,21 @@ import sharp from 'sharp';
 const ROOT = process.cwd();
 const OUT_DIR = path.join(ROOT, 'public', 'gallery');
 const OUT_JSON = path.join(ROOT, 'src', 'data', 'gallery.generated.json');
+const GEN_DIR = path.join(ROOT, 'public', 'generated');
+const PROFILE_RE = /^profile\.(jpe?g|png|webp)$/i;
 const LOCAL_DIR = path.join(ROOT, 'photos');
 const MAX_PHOTOS = Number(process.env.GALLERY_MAX || 40);
 const IMAGE_RE = /\.(jpe?g|png|webp|avif|tiff?)$/i;
 
 const log = (...a) => console.log('[photos]', ...a);
 const inCI = process.env.GITHUB_ACTIONS === 'true';
+
+/** Keep at most one profile.* file plus the first MAX_PHOTOS gallery images. */
+function pickFiles(list, nameOf) {
+  const prof = list.filter((x) => PROFILE_RE.test(nameOf(x))).slice(0, 1);
+  const rest = list.filter((x) => !PROFILE_RE.test(nameOf(x))).slice(0, MAX_PHOTOS);
+  return [...prof, ...rest];
+}
 
 /* ----------------------------- Google Drive ----------------------------- */
 const b64url = (buf) => Buffer.from(buf).toString('base64').replace(/=+$/, '').replace(/\+/g, '-').replace(/\//g, '_');
@@ -78,8 +91,8 @@ async function listDrive(token, folderId) {
     const data = await res.json();
     files.push(...(data.files || []));
     pageToken = data.nextPageToken || '';
-  } while (pageToken && files.length < MAX_PHOTOS);
-  return files.slice(0, MAX_PHOTOS);
+  } while (pageToken && files.length < 500);
+  return pickFiles(files, (f) => f.name);
 }
 
 async function fromDrive() {
@@ -87,7 +100,7 @@ async function fromDrive() {
   const folderId = process.env.GDRIVE_FOLDER_ID.trim();
   const token = await driveToken(key);
   const files = await listDrive(token, folderId);
-  log(`Drive: ${files.length} image(s) in folder`);
+  log(`Drive: ${files.length} image(s) selected from folder`);
   const items = [];
   for (const f of files) {
     const res = await fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(f.id)}?alt=media&supportsAllDrives=true`, {
@@ -106,7 +119,7 @@ async function fromLocal() {
   let captions = {};
   try { captions = JSON.parse(await fs.readFile(path.join(LOCAL_DIR, 'captions.json'), 'utf8')); } catch {}
   const items = [];
-  for (const n of names.slice(0, MAX_PHOTOS)) {
+  for (const n of pickFiles(names, (x) => x)) {
     const buf = await fs.readFile(path.join(LOCAL_DIR, n));
     items.push({ name: n, caption: (captions[n] || '').trim(), version: n + buf.length, buf });
   }
@@ -118,6 +131,8 @@ async function fromLocal() {
 async function main() {
   await fs.rm(OUT_DIR, { recursive: true, force: true });
   await fs.mkdir(OUT_DIR, { recursive: true });
+  await fs.rm(GEN_DIR, { recursive: true, force: true });
+  await fs.mkdir(GEN_DIR, { recursive: true });
 
   const driveConfigured = !!(process.env.GDRIVE_SERVICE_ACCOUNT_KEY && process.env.GDRIVE_FOLDER_ID);
   let items = [];
@@ -133,6 +148,20 @@ async function main() {
   } else {
     items = await fromLocal();
   }
+
+  // Portrait: square crop, metadata stripped, never part of the gallery.
+  const portrait = items.find((it) => PROFILE_RE.test(it.name));
+  if (portrait) {
+    try {
+      await sharp(portrait.buf, { failOn: 'none' }).rotate()
+        .resize(600, 600, { fit: 'cover', position: 'attention' })
+        .webp({ quality: 85 }).toFile(path.join(GEN_DIR, 'profile.webp'));
+      log(`profile photo: from "${portrait.name}"`);
+    } catch (err) {
+      log(`profile photo skipped: cannot decode "${portrait.name}" (${err.message})`);
+    }
+  }
+  items = items.filter((it) => !PROFILE_RE.test(it.name));
 
   const out = [];
   for (const it of items) {

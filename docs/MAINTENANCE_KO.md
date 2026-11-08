@@ -29,7 +29,7 @@
 
 | 항목 | 방법 |
 |---|---|
-| 프로필 사진 | 정사각형에 가까운 JPG(권장 600×600 이상)를 **`public/images/profile.jpg`** 로 저장. 파일이 없으면 "KC" 모노그램이 표시됨 |
+| 프로필 사진 | **권장:** Google Drive 갤러리 폴더에 `profile.jpg`로 업로드 (저장소에 원본이 남지 않음, `docs/GALLERY_DRIVE_KO.md`). 대안: `public/images/profile.jpg`로 commit (이 경우 원본이 공개 저장소에 남음). 둘 다 없으면 "KC" 표시 |
 | 사진 메타데이터 | 올리기 전에 위치정보(EXIF GPS)를 제거하세요. Windows: 파일 우클릭 → 속성 → 자세히 → "속성 및 개인 정보 제거" |
 | LinkedIn | `src/config/site.ts` → `linkedin: 'https://www.linkedin.com/in/아이디/'` 입력 → 프로필 카드·푸터·CV 페이지에 아이콘이 자동으로 표시됨 |
 | 이름·직함·한 줄 소개 | `src/config/site.ts` → `PROFILE`의 `nativeName`, `positions`, `tagline` |
