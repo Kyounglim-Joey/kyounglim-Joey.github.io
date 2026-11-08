@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import { degrees, creditCoursework, training } from '../data/content';
+---
+<Base title="Education" description="Degrees, credit-bearing coursework, and non-degree security and machine learning training.">
+  <header class="page-head">
+    <p class="eyebrow">Education</p>
+    <h1>Education &amp; training</h1>
+    <p>Degrees, credit-bearing coursework, and non-degree training are listed separately. Certifications are on the <a href="/skills/">Skills</a> page.</p>
+  </header>
+
+  <section aria-labelledby="deg">
+    <h2 id="deg">Degree programs</h2>
+    {degrees.map((d) => (
+      <article class="entry">
+        <div class="head">
+          <h3>{d.school}</h3>
+          <p class="sub">{d.degree} · {d.place}</p>
+        </div>
+        <div class="dates">{d.dates}</div>
+        <div class="body">
+          {d.coursework.length > 0 && (
+            <p><em>Relevant coursework:</em> {d.coursework.join('; ')}</p>
+          )}
+        </div>
+      </article>
+    ))}
+  </section>
+
+  <section aria-labelledby="credit">
+    <h2 id="credit">Additional quantitative coursework</h2>
+    <p><strong>{creditCoursework.courses.join('; ')}</strong></p>
+    <p class="muted">{creditCoursework.label}. Korea’s Academic Credit Bank System grants accredited university-level credits outside a degree program.</p>
+  </section>
+
+  <section aria-labelledby="train">
+    <h2 id="train">Non-degree training</h2>
+    {training.map((t) => (
+      <article class="entry">
+        <div class="head"><h3>{t.name}</h3><p class="sub">{t.org}</p></div>
+        <div class="dates">{t.dates}</div>
+        <div class="body"><ul>{t.topics.map((x) => <li>{x}</li>)}</ul></div>
+      </article>
+    ))}
+  </section>
+</Base>

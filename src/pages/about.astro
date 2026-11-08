@@ -1,0 +1,70 @@
+---
+import Base from '../layouts/Base.astro';
+import { researchInterests } from '../data/content';
+const steps = [
+  {
+    when: '2015 – 2022',
+    title: 'Philosophy (with Life Sciences)',
+    text: 'A B.A. in Philosophy trained me to take arguments apart: what is assumed, what follows, where a claim breaks. A double major in Life Sciences added the habit of testing a claim against data.',
+  },
+  {
+    when: '2021 – 2022',
+    title: 'Data science and machine learning',
+    text: 'In an intensive ML program I led three team projects — Korean summarization with a fine-tuned T5 model, YOLOv5 object detection, and customer-decline prediction — and then prepared computer-vision training data as a data analyst.',
+  },
+  {
+    when: '2023 – present',
+    title: 'Security engineering in a bank',
+    text: 'At Hana Bank I run cryptographic and authentication infrastructure. The work is about mechanisms (keys, modules, protocols) and about failures: a thread race in a key-generation library, a blocked CORS preflight, a switch fault that looked like an application bug.',
+  },
+  {
+    when: '2025 – present',
+    title: 'Formal CS and security education',
+    text: 'To build the foundations my job relies on, I enrolled in an Information Security degree program, completed credit-bearing linear algebra and probability & statistics, and finished KISA’s K-Shield incident-response training.',
+  },
+  {
+    when: 'Next',
+    title: 'AI security research',
+    text: 'Banks are deploying ML and LLM-based systems into the same regulated environments I secure today. I want to study how these systems can be attacked and how to make their guarantees as concrete as those of a cryptographic module.',
+  },
+];
+---
+<Base title="About" description="How a background in philosophy, machine learning, and banking security leads to research interests in AI security.">
+  <header class="page-head">
+    <p class="eyebrow">About</p>
+    <h1>From arguments to mechanisms</h1>
+    <p>I came to security from philosophy and data science. What connects them is a question I keep asking: under what conditions does this claim — or this system — stop being true?</p>
+  </header>
+
+  <section aria-labelledby="path-title">
+    <h2 id="path-title">Path</h2>
+    <ol class="path">
+      {steps.map((s) => (
+        <li class="reveal"><div class="when">{s.when}</div><h3>{s.title}</h3><p>{s.text}</p></li>
+      ))}
+    </ol>
+  </section>
+
+  <section aria-labelledby="why-title">
+    <h2 id="why-title">Why graduate study, and why now</h2>
+    <p>
+      My daily work gives me unusual exposure to how security controls behave in production, under audit, and when they fail.
+      What it does not give me is the theory and research training to generalize from incidents to methods.
+      A graduate program in security or AI security is where I want to build that: rigorous foundations in cryptography,
+      systems, and machine learning, and the experience of turning an engineering question into a research question.
+    </p>
+    <p>
+      I am honest about what I have and have not done: I have production security experience and applied ML projects,
+      but no publications yet. The projects on this site are my strongest evidence of how I work on a technical problem.
+    </p>
+  </section>
+
+  <section aria-labelledby="ri-title" data-track-view="research_interests">
+    <h2 id="ri-title">Research interests</h2>
+    <ul class="interest-list">
+      {researchInterests.map((r) => (
+        <li class="card"><h3>{r.title}</h3><p>{r.text}</p></li>
+      ))}
+    </ul>
+  </section>
+</Base>

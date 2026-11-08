@@ -1,0 +1,18 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { projects } from '../../data/content';
+const featured = projects.find((p) => p.featured)!;
+const others = projects.filter((p) => !p.featured);
+---
+<Base title="Projects" description="Machine learning projects: Korean summarization with ET5, YOLOv5 mold detection, and customer-decline prediction.">
+  <header class="page-head">
+    <p class="eyebrow">Projects</p>
+    <h1>Machine learning projects</h1>
+    <p>Three team projects from an intensive ML program (2021), each with code on GitHub. I was team leader on all three; each case study separates my own contributions from the team’s.</p>
+  </header>
+  <div class="grid two">
+    <ProjectCard project={featured} featured headingLevel="h2" />
+    {others.map((p) => <ProjectCard project={p} headingLevel="h2" />)}
+  </div>
+</Base>

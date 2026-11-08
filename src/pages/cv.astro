@@ -1,0 +1,34 @@
+---
+import Base from '../layouts/Base.astro';
+import { LINKS, SITE } from '../config/site';
+---
+<Base title="CV & Contact" description="Download the academic CV of Kyounglim Cho and find contact links.">
+  <header class="page-head">
+    <p class="eyebrow">CV &amp; contact</p>
+    <h1>CV &amp; contact</h1>
+    <p>The PDF is the web version of my academic CV. The version submitted with applications may include additional contact details.</p>
+  </header>
+
+  <div class="grid two">
+    <section class="card" aria-labelledby="cv-h">
+      <h2 id="cv-h" style="font-size:1.3rem">Academic CV</h2>
+      <p>Education, professional experience, projects, awards, certifications, and skills on two pages.</p>
+      <div class="btn-row" style="margin-top:0">
+        <a class="btn primary" href={LINKS.cv} data-loc="cv-page">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 21h14"/></svg>
+          Download CV (PDF)
+        </a>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="ct-h">
+      <h2 id="ct-h" style="font-size:1.3rem">Contact</h2>
+      <dl class="kv">
+        <dt>Email</dt><dd><a href={`mailto:${LINKS.email}`} data-loc="cv-page">{LINKS.email}</a></dd>
+        <dt>GitHub</dt><dd><a href={LINKS.github} rel="noopener" data-loc="cv-page">{LINKS.github.replace('https://', '')}</a></dd>
+        {LINKS.linkedin && (<><dt>LinkedIn</dt><dd><a href={LINKS.linkedin} rel="noopener" data-loc="cv-page">{LINKS.linkedin.replace('https://', '').replace('www.', '')}</a></dd></>)}
+        <dt>Location</dt><dd>{SITE.location}</dd>
+      </dl>
+    </section>
+  </div>
+</Base>

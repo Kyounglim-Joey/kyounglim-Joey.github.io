@@ -1,0 +1,16 @@
+---
+import { SITE, LINKS } from '../config/site';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container row">
+    <p style="margin:0">© {year} {SITE.name}. Built with Astro, hosted on GitHub Pages.</p>
+    <ul>
+      <li><a href={LINKS.github} rel="noopener" data-loc="footer">GitHub</a></li>
+      {LINKS.linkedin && <li><a href={LINKS.linkedin} rel="noopener" data-loc="footer">LinkedIn</a></li>}
+      <li><a href={`mailto:${LINKS.email}`} data-loc="footer">Email</a></li>
+      <li><a href={LINKS.cv} data-loc="footer">CV (PDF)</a></li>
+      <li><a href="/privacy/">Privacy</a></li>
+    </ul>
+  </div>
+</footer>

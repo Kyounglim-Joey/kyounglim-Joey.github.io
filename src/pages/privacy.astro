@@ -1,0 +1,53 @@
+---
+import Base from '../layouts/Base.astro';
+import { LINKS } from '../config/site';
+---
+<Base title="Privacy" description="How this site measures visits: cookieless, aggregate statistics with Umami, and how to opt out.">
+  <header class="page-head">
+    <p class="eyebrow">Privacy</p>
+    <h1>Privacy &amp; analytics</h1>
+    <p>Last updated: November 2026</p>
+  </header>
+
+  <section aria-labelledby="what">
+    <h2 id="what">What is measured</h2>
+    <p>
+      This site uses <a href="https://umami.is" rel="noopener">Umami Cloud</a>, a privacy-focused analytics service, to count
+      visits in aggregate: which pages are viewed, how visitors arrive (the referring website’s domain), country and region,
+      device type, browser, and operating system. It also records a few interactions — CV downloads, clicks on GitHub,
+      LinkedIn, or email links, which project pages are opened — and an estimate of active reading time and scroll depth per page.
+    </p>
+    <p>The purpose is to understand which content is useful so the portfolio can be improved. It is not used to identify anyone.</p>
+  </section>
+
+  <section aria-labelledby="not">
+    <h2 id="not">What is not collected</h2>
+    <ul>
+      <li>No cookies are set by the analytics, and no advertising or cross-site tracking is used.</li>
+      <li>No names, email addresses, account IDs, or form inputs are collected. This site has no forms or logins.</li>
+      <li>URL query strings and fragments are removed before sending, and the referrer is reduced to its domain.</li>
+      <li>IP addresses are not stored by this site. Umami processes the request to derive approximate location and an anonymous, periodically rotating visit identifier; see Umami’s documentation for details.</li>
+    </ul>
+    <p>Because no identity is collected, the statistics cannot tell who visited — for example, whether a visitor was from a particular university.</p>
+  </section>
+
+  <section aria-labelledby="choice">
+    <h2 id="choice">Your choices</h2>
+    <ul>
+      <li>If your browser sends <strong>Do Not Track</strong> or <strong>Global Privacy Control</strong>, nothing is recorded.</li>
+      <li>You can switch off measurement for this browser below. The setting is stored only in your browser’s local storage.</li>
+    </ul>
+    <div class="card" style="max-width:34rem">
+      <label class="toggle"><input type="checkbox" id="optout" /> Do not measure my visits on this site</label>
+      <p class="status" id="optout-status" role="status" aria-live="polite"></p>
+    </div>
+    <p style="margin-top:1rem">Theme (light/dark) preference is also kept in local storage; it is not sent anywhere.</p>
+  </section>
+
+  <section aria-labelledby="who">
+    <h2 id="who">Retention and contact</h2>
+    <p>Aggregate statistics are kept by Umami for the retention period of the account plan. Questions: <a href={`mailto:${LINKS.email}`}>{LINKS.email}</a>.</p>
+  </section>
+
+  <script is:inline src="/js/privacy.js" defer></script>
+</Base>

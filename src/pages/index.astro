@@ -1,0 +1,91 @@
+---
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { SITE, LINKS } from '../config/site';
+import { projects, researchInterests } from '../data/content';
+const featured = projects.find((p) => p.featured)!;
+const others = projects.filter((p) => !p.featured);
+---
+<Base>
+  <section class="hero" aria-labelledby="hero-title">
+    <div>
+      <p class="eyebrow">Applying for graduate study in Security &amp; AI Security · Fall 2027</p>
+      <h1 id="hero-title">{SITE.name}</h1>
+      <p class="role">{SITE.role} at a commercial bank in Seoul · {SITE.tagline}</p>
+      <p class="lead">
+        I run cryptographic and authentication infrastructure for a bank and trace failures down to the
+        kernel log or the packet capture. Before security, I led machine learning projects in NLP and computer vision.
+        I want to study how ML systems fail under attack — and how to build them so they don’t.
+      </p>
+      <div class="btn-row">
+        <a class="btn primary" href={LINKS.cv} data-loc="hero">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 21h14"/></svg>
+          Download CV (PDF)
+        </a>
+        <a class="btn" href="/projects/" data-loc="hero">View projects</a>
+        <a class="btn" href={LINKS.github} rel="noopener" data-loc="hero">GitHub</a>
+        {LINKS.linkedin && <a class="btn" href={LINKS.linkedin} rel="noopener" data-loc="hero">LinkedIn</a>}
+      </div>
+    </div>
+    <aside class="card facts" aria-label="Quick facts">
+      <dl class="kv">
+        <dt>Now</dt><dd>Information Security Engineer, Hana Bank (2023–)</dd>
+        <dt>Focus</dt><dd>HSM/KMS key management · MFA/SSO · Linux/Unix · network forensics</dd>
+        <dt>ML</dt><dd>Transformer NLP (T5) · object detection (YOLOv5) · tabular ML</dd>
+        <dt>Studying</dt><dd>Information Security (bachelor’s program, expected Aug 2027)</dd>
+        <dt>Seeking</dt><dd>M.S. in Security / AI Security, Fall 2027</dd>
+      </dl>
+    </aside>
+  </section>
+
+  <section aria-labelledby="at-a-glance">
+    <h2 id="at-a-glance" class="visually-hidden">At a glance</h2>
+    <div class="pillars">
+      <div class="card pillar reveal">
+        <h3>Security engineering in production</h3>
+        <p>Since 2023: enterprise encryption with HSM/KMS key management, MFA and SSO for employees, disaster-recovery design, and root-cause analysis across Linux/Unix, network, and application layers.</p>
+        <p style="margin-top:.6rem"><a href="/experience/" data-loc="pillar">Experience →</a></p>
+      </div>
+      <div class="card pillar reveal">
+        <h3>Machine learning, measured</h3>
+        <p>Fine-tuned a Korean T5 model to BERTScore F1 0.8391, trained a YOLOv5 mold detector (mAP@0.5 0.723), and compared five classifiers on 19k customers. Team leader on all three.</p>
+        <p style="margin-top:.6rem"><a href="/projects/" data-loc="pillar">Projects →</a></p>
+      </div>
+      <div class="card pillar reveal">
+        <h3>Formal preparation</h3>
+        <p>B.A. in Philosophy (Ewha). Now completing a second bachelor’s program in Information Security, with credit-bearing linear algebra and probability &amp; statistics.</p>
+        <p style="margin-top:.6rem"><a href="/education/" data-loc="pillar">Education →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="ri-title" data-track-view="research_interests">
+    <p class="eyebrow">What I want to work on</p>
+    <h2 id="ri-title">Research interests</h2>
+    <ul class="interest-list">
+      {researchInterests.map((r) => (
+        <li class="card reveal"><h3>{r.title}</h3><p>{r.text}</p></li>
+      ))}
+    </ul>
+  </section>
+
+  <section aria-labelledby="proj-title">
+    <p class="eyebrow">Selected work</p>
+    <h2 id="proj-title">Projects</h2>
+    <div class="grid two">
+      <ProjectCard project={featured} featured />
+      {others.map((p) => <ProjectCard project={p} />)}
+    </div>
+  </section>
+
+  <section aria-labelledby="next-title">
+    <div class="callout">
+      <h2 id="next-title" style="font-size:1.3rem">Get in touch</h2>
+      <p>The CV has the full record. For questions about my background or a project, email is the fastest way to reach me.</p>
+      <div class="btn-row" style="margin-top:0">
+        <a class="btn primary" href={`mailto:${LINKS.email}`} data-loc="home-cta">Email me</a>
+        <a class="btn" href="/cv/" data-loc="home-cta">CV &amp; contact</a>
+      </div>
+    </div>
+  </section>
+</Base>

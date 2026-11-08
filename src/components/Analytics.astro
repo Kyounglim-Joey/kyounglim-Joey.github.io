@@ -1,0 +1,28 @@
+---
+/**
+ * Loads Umami only when a website ID is configured at build time.
+ * Order matters (all `defer`, so they execute in document order):
+ *   1. umami-guard.js  → defines window.umamiBeforeSend (privacy filter) + opt-out check
+ *   2. Umami tracker   → automatic page views
+ *   3. analytics.js    → custom events, engagement time, scroll depth
+ */
+import { ANALYTICS } from '../config/site';
+const enabled = ANALYTICS.websiteId.length > 0;
+---
+{enabled && (
+  <>
+    <script is:inline src="/js/umami-guard.js" defer></script>
+    <script
+      is:inline
+      defer
+      src={ANALYTICS.scriptUrl}
+      data-website-id={ANALYTICS.websiteId}
+      data-domains={ANALYTICS.domains}
+      data-do-not-track="true"
+      data-exclude-search="true"
+      data-exclude-hash="true"
+      data-before-send="umamiBeforeSend"
+    ></script>
+    <script is:inline src="/js/analytics.js" defer></script>
+  </>
+)}

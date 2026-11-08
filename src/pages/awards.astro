@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+import { awards } from '../data/content';
+const external = awards.filter((a) => a.kind === 'external');
+const internal = awards.filter((a) => a.kind === 'internal');
+---
+<Base title="Honors & Awards" description="Competition awards for an NLP project and first-place finishes in internal innovation competitions.">
+  <header class="page-head">
+    <p class="eyebrow">Honors &amp; awards</p>
+    <h1>Honors &amp; awards</h1>
+  </header>
+
+  <section aria-labelledby="ext">
+    <h2 id="ext">Competition (external)</h2>
+    {external.map((a) => (
+      <article class="entry">
+        <div class="head"><h3>{a.title}</h3><p class="sub">{a.event} · {a.org}</p></div>
+        <div class="dates">{a.date}</div>
+        <div class="body"><p>{a.note} <a href="/projects/et5-korean-summarization/" data-loc="awards">Project details →</a></p></div>
+      </article>
+    ))}
+  </section>
+
+  <section aria-labelledby="int">
+    <h2 id="int">Internal innovation competitions</h2>
+    <p class="muted">First place three times (2023–2024) in company-wide idea competitions. These recognize product and service proposals rather than technical research.</p>
+    {internal.map((a) => (
+      <article class="entry">
+        <div class="head"><h3>{a.title}</h3><p class="sub">{a.event} · {a.org}</p></div>
+        <div class="dates">{a.date}</div>
+        <div class="body"><p>{a.note}</p></div>
+      </article>
+    ))}
+  </section>
+</Base>
