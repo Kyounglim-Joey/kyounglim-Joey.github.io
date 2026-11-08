@@ -3,23 +3,22 @@ import Base from '../layouts/Base.astro';
 import { experience } from '../data/content';
 ---
 <Base title="Experience" description="Security engineering in banking (cryptography, HSM/KMS, MFA, Linux/Unix, network troubleshooting) and data analytics experience.">
-  <header class="page-head">
-    <p class="eyebrow">Professional experience</p>
+  <header>
     <h1>Experience</h1>
-    <p>Descriptions focus on my technical contribution and the problem solved. Internal system details of my employer are intentionally generalized.</p>
+    <p>What I worked on and what I fixed. Internal details of my employer’s systems are left out.</p>
   </header>
 
   {experience.map((job) => (
     <article class="entry">
       <div class="head">
-        <h2 style="font-size:1.45rem;margin:0">{job.org}</h2>
+        <h2 style="border:0;padding:0;margin:0">{job.org}</h2>
         <p class="sub">{job.title} · {job.unit} · {job.place}</p>
       </div>
       <div class="dates">{job.dates}</div>
       <div class="body">
         <p>{job.summary}</p>
         {job.groups.map((g) => (
-          <div class="reveal">
+          <div>
             <h3 class="group-title">{g.area}</h3>
             <ul>{g.items.map((i) => <li>{i}</li>)}</ul>
           </div>

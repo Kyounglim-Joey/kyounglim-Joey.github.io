@@ -5,23 +5,11 @@
  */
 
 export const researchInterests = [
-  {
-    title: 'Security of AI and ML systems',
-    text: 'How models, data pipelines, and LLM-based applications fail under adversarial pressure, and how to deploy them with defensible guarantees.',
-  },
-  {
-    title: 'Applied cryptography & key management',
-    text: 'Key lifecycle, HSM-backed services, and the gap between cryptographic primitives and how they are integrated in production systems.',
-  },
-  {
-    title: 'Authentication & identity security',
-    text: 'Multi-factor authentication, resilience of identity services under failure, and usable security for enterprise users.',
-  },
-  {
-    title: 'Secure systems & infrastructure',
-    text: 'Root-cause analysis of failures across OS, network, and application layers in regulated environments.',
-  },
-];
+  { title: 'Security of machine learning systems', text: 'adversarial robustness, and how LLM-based applications fail when inputs are hostile.' },
+  { title: 'Applied cryptography and key management', text: 'the gap between primitives and how they are actually integrated and operated.' },
+  { title: 'Authentication and identity', text: 'MFA, recovery, and keeping identity services available when things break.' },
+  { title: 'Systems security', text: 'root-cause analysis of failures that cross OS, network, and application layers.' },
+]
 
 /* ------------------------------------------------------------------ */
 /* Experience                                                          */
@@ -102,6 +90,26 @@ export const experience = [
   },
 ];
 
+/** Home page: short Hana Bank summary (full detail lives in `experience`). */
+export const experienceHighlights = [
+  'Operate field-level and in-transit encryption for regulated personal data, with HSM/KMS-based key management.',
+  'Led the replacement of end-of-service encryption servers without a service interruption.',
+  'Found the cause of intermittent key-generation failures in an ATM encryption module (thread contention in a library function), working from kernel-level logs with the vendor’s engineer.',
+  'Run the employee MFA and SSO service; extended MFA to overseas staff for the New York branch’s NYDFS Part 500 compliance and designed its disaster-recovery setup.',
+  'Traced an API outage to blocked CORS preflight requests in packet captures, and assess partner Open API integrations.',
+  'Prepare audit evidence for ISMS-P certification and financial-regulator examinations.',
+];
+
+/** Home page "News". Newest first. Keep each item to one line. */
+export const news = [
+  { date: 'Nov 2026', text: 'Applying to master’s programs in computer science and security for Fall 2027.' },
+  { date: 'Nov 2025', text: 'Completed the K-Shield training program (incident response track) run by KISA.' },
+  { date: 'Mar 2025', text: 'Started the Information Security program at Sejong Cyber University as a third-year transfer student.' },
+  { date: 'Nov 2024', text: 'Earned the ADsP (Advanced Data Analytics Semi-Professional) certification.' },
+  { date: 'Apr 2023', text: 'Joined the Digital Security Team at Hana Bank.' },
+  { date: 'Dec 2021', text: 'Our Korean summarization project received the Top Excellence Award at a national AI service competition.' },
+];
+
 /* ------------------------------------------------------------------ */
 /* Projects                                                            */
 /* ------------------------------------------------------------------ */
@@ -133,11 +141,15 @@ export type Project = {
   challenges: string[];
   lessons: string[];
   connection: string;
+  thumb?: string;
+  result?: string;
 };
 
 export const projects: Project[] = [
   {
     slug: 'et5-korean-summarization',
+    thumb: '/images/projects/thumb-et5.jpg',
+    result: 'BERTScore F1 0.8391 on the validation split; Top Excellence Award (2021).',
     name: 'et5_summarization',
     title: 'Korean Text Summarization for Literacy Training',
     short:
@@ -205,7 +217,7 @@ export const projects: Project[] = [
       {
         src: '/images/projects/et5-service-ui.jpg',
         alt: 'Screenshot of the summarization web service with a passage, a learner summary box, a timer, the machine summary, and the score area. Interface text is in Korean.',
-        caption: 'Summary view of the web service (interface in Korean). Labels mark topic tabs, random passage, learner input, timer, machine summary, and score.',
+        caption: 'Summary view of the web service, from the project slides (interface in Korean).',
         width: 1200,
         height: 675,
       },
@@ -224,6 +236,8 @@ export const projects: Project[] = [
   },
   {
     slug: 'mold-detection-yolov5',
+    thumb: '/images/projects/thumb-mold.jpg',
+    result: 'mAP@0.5 of 0.723 for the mold class (precision 0.706, recall 0.69).',
     name: 'mold_detection',
     title: 'Mold Detection on Medicinal Crops with YOLOv5',
     short:
@@ -276,14 +290,14 @@ export const projects: Project[] = [
       {
         src: '/images/projects/mold-validation.jpg',
         alt: 'YOLOv5 validation summary table and twelve training curves for box, objectness, and class loss, precision, recall, and mAP over about 200 epochs.',
-        caption: 'YOLOv5 validation summary and training curves. The highlighted row is the mold class.',
+        caption: 'YOLOv5 validation summary and training curves (from the project slides). The highlighted row is the mold class.',
         width: 653,
         height: 361,
       },
       {
         src: '/images/projects/mold-detection.jpg',
         alt: 'CCTV frame of two crop trays with several bounding boxes labeled mold and confidence scores around 0.64 to 0.67.',
-        caption: 'Detections on a held-out CCTV frame using the trained weights.',
+        caption: 'Detections on a held-out CCTV frame using the trained weights (from the project slides).',
         width: 481,
         height: 333,
       },
@@ -302,6 +316,8 @@ export const projects: Project[] = [
   },
   {
     slug: 'customer-decline-prediction',
+    thumb: '/images/projects/thumb-churn.jpg',
+    result: 'Random Forest was best of five models (accuracy 0.7137, F1 0.7265).',
     name: 'customer_decline',
     title: 'Predicting Declining-Spend Customers from Retail Purchase Data',
     short:
@@ -359,6 +375,15 @@ export const projects: Project[] = [
         ['Random Forest', '0.7137', '0.7353', '0.7180', '0.7265'],
       ],
     },
+    figures: [
+      {
+        src: '/images/projects/churn-f1.png',
+        alt: 'Bar chart of F1 scores for five models: Decision Tree 0.7069, XGBoost 0.7094, LightGBM 0.7159, CatBoost 0.7223, Random Forest 0.7265.',
+        caption: 'F1 by model, plotted from the comparison table above.',
+        width: 720,
+        height: 540,
+      },
+    ],
     challenges: [
       'Turning 28.6M transaction rows into a stable per-customer representation without leaking the test period.',
       'A naive “spent less than last period” label would mostly capture seasonality; normalizing by overall growth fixed that.',

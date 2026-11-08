@@ -13,43 +13,32 @@ const next = projects[(idx + 1) % projects.length];
 const toc = [
   ['problem', 'Problem'],
   ['approach', 'Approach'],
-  ['stack', 'Technology stack'],
+  ['stack', 'Tools'],
   ['contributions', 'My contributions'],
-  ['methodology', 'Methodology'],
+  ['methodology', 'Method'],
   ['results', 'Results'],
-  ['challenges', 'Technical challenges'],
-  ['lessons', 'Lessons learned'],
-  ['repo', 'Repository'],
+  ['challenges', 'Challenges'],
+  ['lessons', 'What I learned'],
 ];
 const bestRow = (row: string[]) => p.table && p.table.head.length > 2 && row[0] === 'Random Forest';
 ---
 <Base title={p.title} description={p.short} project={p.name} ogType="article">
-  <nav aria-label="Breadcrumb" class="muted" style="font-size:.9rem;margin-bottom:1rem"><a href="/projects/">Projects</a> / <span aria-current="page">{p.title}</span></nav>
-  <header class="page-head" style="margin-bottom:2rem">
-    {p.featured && <span class="badge">Featured project</span>}
-    <h1 style="margin-top:.6rem">{p.title}</h1>
+  <nav class="crumb" aria-label="Breadcrumb"><a href="/projects/">Projects</a> / <span aria-current="page">{p.title}</span></nav>
+  <header>
+    <h1>{p.title}</h1>
     <p>{p.short}</p>
-    <dl class="kv">
-      <dt>Dates</dt><dd>{p.dates}</dd>
-      <dt>My role</dt><dd>{p.role}</dd>
+    <dl class="kv facts">
+      <dt>When</dt><dd>{p.dates}</dd>
+      <dt>Role</dt><dd>{p.role}</dd>
       <dt>Team</dt><dd>{p.team}</dd>
+      <dt>Result</dt><dd>{p.headline.slice(0, 2).map((m) => `${m.label}: ${m.value}`).join('; ')}</dd>
+      <dt>Code</dt><dd><a href={p.repo} rel="noopener" data-project={p.name} data-loc="detail-header">{p.repo.replace('https://', '')}</a></dd>
     </dl>
-    <div class="metric-row">
-      {p.headline.map((m) => (
-        <div class="metric"><div class="value">{m.value}</div><div class="label">{m.label}</div>{m.note && <div class="note">{m.note}</div>}</div>
-      ))}
-    </div>
-    <div class="btn-row" style="margin-top:0">
-      <a class="btn primary" href={p.repo} rel="noopener" data-project={p.name} data-loc="detail-header">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.4-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
-        Code on GitHub
-      </a>
-    </div>
   </header>
 
   <div class="detail-grid">
     <article class="detail">
-      <section id="problem" aria-labelledby="h-problem" style="margin-top:0">
+      <section id="problem" aria-labelledby="h-problem">
         <h2 id="h-problem">Problem</h2>
         <p>{p.problem}</p>
       </section>
@@ -60,24 +49,24 @@ const bestRow = (row: string[]) => p.table && p.table.head.length > 2 && row[0] 
       </section>
 
       <section id="stack" aria-labelledby="h-stack">
-        <h2 id="h-stack">Technology stack</h2>
+        <h2 id="h-stack">Tools</h2>
         <dl class="kv">
-          {p.stack.map((s) => (<><dt>{s.group}</dt><dd>{s.items.join(' · ')}</dd></>))}
+          {p.stack.map((s) => (<><dt>{s.group}</dt><dd>{s.items.join(', ')}</dd></>))}
         </dl>
       </section>
 
       <section id="contributions" aria-labelledby="h-contrib">
         <h2 id="h-contrib">My contributions</h2>
         <ul>{p.contributions.map((c) => <li>{c}</li>)}</ul>
-        <h3 class="group-title">Team outcomes (shared work)</h3>
+        <p class="muted" style="margin-bottom:.3rem">Done together with the team:</p>
         <ul>{p.teamOutcomes.map((c) => <li>{c}</li>)}</ul>
       </section>
 
       <section id="methodology" aria-labelledby="h-method">
-        <h2 id="h-method">Methodology</h2>
-        <ol class="steps">
-          {p.methodology.map((m) => <li><strong>{m.step}</strong>{m.detail}</li>)}
-        </ol>
+        <h2 id="h-method">Method</h2>
+        <dl class="kv">
+          {p.methodology.map((m) => (<><dt>{m.step}</dt><dd>{m.detail}</dd></>))}
+        </dl>
       </section>
 
       <section id="results" aria-labelledby="h-results">
@@ -100,33 +89,32 @@ const bestRow = (row: string[]) => p.table && p.table.head.length > 2 && row[0] 
         {p.figures?.map((f) => (
           <figure>
             <img src={f.src} alt={f.alt} width={f.width} height={f.height} loading="lazy" decoding="async" />
-            <figcaption>{f.caption} Source: project presentation in the repository.</figcaption>
+            <figcaption>{f.caption}</figcaption>
           </figure>
         ))}
       </section>
 
       <section id="challenges" aria-labelledby="h-chal">
-        <h2 id="h-chal">Technical challenges</h2>
+        <h2 id="h-chal">Challenges</h2>
         <ul>{p.challenges.map((c) => <li>{c}</li>)}</ul>
       </section>
 
       <section id="lessons" aria-labelledby="h-lessons">
-        <h2 id="h-lessons">Lessons learned</h2>
+        <h2 id="h-lessons">What I learned</h2>
         <ul>{p.lessons.map((l) => <li>{l}</li>)}</ul>
-        <div class="callout"><p><strong>Connection to my research interests.</strong> {p.connection}</p></div>
+        <p>{p.connection}</p>
       </section>
 
-      <section id="repo" aria-labelledby="h-repo">
-        <h2 id="h-repo">Repository</h2>
-        <p><a href={p.repo} rel="noopener" data-project={p.name} data-loc="detail-repo">{p.repo.replace('https://', '')}</a></p>
-        <p class="muted"><small>Team repository from 2021; notebooks and comments are mostly in Korean.</small></p>
-        <hr />
-        <p>Next project: <a href={`/projects/${next.slug}/`} data-loc="next-project">{next.title} →</a></p>
-      </section>
+      <hr />
+      <p style="font-size:.95rem">
+        Source code: <a href={p.repo} rel="noopener" data-project={p.name} data-loc="detail-repo">{p.repo.replace('https://', '')}</a>
+        <span class="muted"> (team repository; notebooks are mostly in Korean)</span><br />
+        Next: <a href={`/projects/${next.slug}/`} data-loc="next-project">{next.title}</a>
+      </p>
     </article>
 
     <aside class="toc" aria-label="On this page">
-      <p class="eyebrow" style="margin-bottom:.5rem">On this page</p>
+      <p>Contents</p>
       <ol>{toc.map(([id, label]) => <li><a href={`#${id}`}>{label}</a></li>)}</ol>
     </aside>
   </div>

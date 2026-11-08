@@ -18,6 +18,19 @@ export const SITE = {
   locale: 'en_US',
 };
 
+/**
+ * Left sidebar profile card (shown on every page on desktop, on the home page on mobile).
+ * Photo: put a square-ish JPG at public/images/profile.jpg (e.g. 600×600). If the file
+ * does not exist, a "KC" monogram is shown instead.
+ */
+export const PROFILE = {
+  nativeName: '조경림',
+  photo: '/images/profile.jpg',
+  photoAlt: 'Portrait of Kyounglim Cho',
+  positions: ['Information Security Engineer', 'Hana Bank · Seoul, South Korea'],
+  tagline: 'Security engineering → AI security',
+};
+
 export const LINKS = {
   github: 'https://github.com/Kyounglim-Joey',
   // TODO(Zoey): paste your LinkedIn profile URL. Leave empty to hide every LinkedIn link.

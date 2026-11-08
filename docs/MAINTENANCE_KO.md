@@ -25,6 +25,19 @@
 
 ---
 
+## 1-1. 왼쪽 프로필 카드 (사진·링크)
+
+| 항목 | 방법 |
+|---|---|
+| 프로필 사진 | 정사각형에 가까운 JPG(권장 600×600 이상)를 **`public/images/profile.jpg`** 로 저장. 파일이 없으면 "KC" 모노그램이 표시됨 |
+| 사진 메타데이터 | 올리기 전에 위치정보(EXIF GPS)를 제거하세요. Windows: 파일 우클릭 → 속성 → 자세히 → "속성 및 개인 정보 제거" |
+| LinkedIn | `src/config/site.ts` → `linkedin: 'https://www.linkedin.com/in/아이디/'` 입력 → 프로필 카드·푸터·CV 페이지에 아이콘이 자동으로 표시됨 |
+| 이름·직함·한 줄 소개 | `src/config/site.ts` → `PROFILE`의 `nativeName`, `positions`, `tagline` |
+| 홈 화면 Hana Bank 요약 6칸 | `src/data/content.ts` → `experienceHighlights` |
+
+## 1-2. About 페이지 사진 갤러리
+`docs/GALLERY_DRIVE_KO.md` 를 참고하세요.
+
 ## 2. 프로젝트 추가
 
 1. `src/data/content.ts`의 `projects` 배열에 기존 항목을 복사해 붙여 넣고 내용을 수정합니다.

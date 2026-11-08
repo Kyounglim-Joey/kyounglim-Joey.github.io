@@ -3,8 +3,7 @@ import Base from '../layouts/Base.astro';
 import { LINKS } from '../config/site';
 ---
 <Base title="Privacy" description="How this site measures visits: cookieless, aggregate statistics with Umami, and how to opt out.">
-  <header class="page-head">
-    <p class="eyebrow">Privacy</p>
+  <header>
     <h1>Privacy &amp; analytics</h1>
     <p>Last updated: November 2026</p>
   </header>
@@ -37,7 +36,7 @@ import { LINKS } from '../config/site';
       <li>If your browser sends <strong>Do Not Track</strong> or <strong>Global Privacy Control</strong>, nothing is recorded.</li>
       <li>You can switch off measurement for this browser below. The setting is stored only in your browser’s local storage.</li>
     </ul>
-    <div class="card" style="max-width:34rem">
+    <div style="border:1px solid var(--line);border-radius:.5rem;padding:1rem 1.25rem;max-width:34rem">
       <label class="toggle"><input type="checkbox" id="optout" /> Do not measure my visits on this site</label>
       <p class="status" id="optout-status" role="status" aria-live="polite"></p>
     </div>

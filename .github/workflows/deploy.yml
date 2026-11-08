@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # Daily rebuild so photos added to the Google Drive folder appear automatically
+  # (03:17 KST). Delete `schedule:` and the cron line if you don't use the Drive gallery.
+  schedule:
+    - cron: '17 18 * * *'
 
 # Least privilege: read the repo, publish to Pages, mint the OIDC token Pages needs.
 permissions:
@@ -25,8 +29,15 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # Photos are fetched in their own step so the Google key is only visible to our
+      # sync script — not to the site build or any of its dependencies.
+      - name: Sync gallery photos (Google Drive, optional)
+        run: node scripts/sync-photos.mjs
+        env:
+          GDRIVE_FOLDER_ID: ${{ vars.GDRIVE_FOLDER_ID }}
+          GDRIVE_SERVICE_ACCOUNT_KEY: ${{ secrets.GDRIVE_SERVICE_ACCOUNT_KEY }}
       - name: Build
-        run: npm run build
+        run: npx astro build
         env:
           # Repository "Variables" (Settings → Secrets and variables → Actions → Variables).
           # The Umami website ID is public by design; it is not a secret.

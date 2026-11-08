@@ -6,3 +6,10 @@ dist-test/
 .env.*
 !.env.example
 .DS_Store
+
+# generated at build time by scripts/sync-photos.mjs
+public/gallery/
+src/data/gallery.generated.json
+# never commit Google credentials
+*service-account*.json
+gdrive-key*.json

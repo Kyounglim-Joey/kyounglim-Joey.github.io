@@ -108,7 +108,7 @@ git push -u origin main
 3. **Events**에 `cv_download`, `github_profile_click`, `page_engagement` 등이 나타나는지 확인합니다.
 4. 기록이 보이지 않으면 아래를 순서대로 확인합니다.
    - 브라우저 광고 차단기를 끄고 다시 테스트합니다. 차단기가 Umami를 막는 경우가 많고, 실제 방문자 중 일부도 같은 이유로 집계되지 않습니다.
-   - 개발자도구 → Console에 **CSP** 오류가 있는지 확인합니다. Umami 전송 도메인이 바뀌었다면 `src/layouts/Base.astro`의 `connect-src`에 해당 도메인을 추가합니다.
+   - 개발자도구 → Console에 **CSP** 오류가 있는지 확인합니다. Umami 전송 도메인이 바뀌었다면 `src/layouts/Base.astro`의 `connect-src`에 해당 도메인을 추가합니다 (2026-11 기준 Umami Cloud 전송 주소: `https://gateway.umami.is/api/send`).
    - 페이지 소스(Ctrl+U)에 `cloud.umami.is/script.js`가 있는지 확인합니다. 없다면 4-2의 변수명 오타이거나, 변수 입력 후 재배포를 하지 않은 경우입니다.
 
 ---

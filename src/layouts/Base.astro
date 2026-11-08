@@ -1,8 +1,12 @@
 ---
+import '@fontsource/lato/latin-400.css';
+import '@fontsource/lato/latin-400-italic.css';
+import '@fontsource/lato/latin-700.css';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Analytics from '../components/Analytics.astro';
+import ProfileCard from '../components/ProfileCard.astro';
 import { SITE, LINKS } from '../config/site';
 
 interface Props {
@@ -10,9 +14,13 @@ interface Props {
   description?: string;
   project?: string; // analytics identifier for project detail pages
   ogType?: 'website' | 'article';
+  /** Wrap page content in a white card (default). The home page composes its own cards. */
+  sheet?: boolean;
+  /** Show the profile card on small screens too (home page only by default). */
+  profileOnMobile?: boolean;
 }
 
-const { title, description = SITE.description, project, ogType = 'website' } = Astro.props;
+const { title, description = SITE.description, project, ogType = 'website', sheet = true, profileOnMobile = false } = Astro.props;
 const fullTitle = title ? `${title} — ${SITE.name}` : SITE.title;
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
 const ogImage = new URL('/og.png', SITE.url).href;
@@ -52,8 +60,8 @@ const csp = [
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" content="#fbfbf9" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0f1419" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f8f9fa" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121417" media="(prefers-color-scheme: dark)" />
     <meta name="author" content={SITE.name} />
 
     <meta property="og:type" content={ogType} />
@@ -74,8 +82,13 @@ const csp = [
     <a class="skip-link" href="#main">Skip to content</a>
     <Header />
     <main id="main" tabindex="-1">
-      <div class="container">
-        <slot />
+      <div class="wrap layout">
+        <aside class:list={['sidebar', { 'mobile-hidden': !profileOnMobile }]} aria-label="Profile">
+          <ProfileCard />
+        </aside>
+        <div class:list={['main-col', { sheet }]}>
+          <slot />
+        </div>
       </div>
     </main>
     <Footer />

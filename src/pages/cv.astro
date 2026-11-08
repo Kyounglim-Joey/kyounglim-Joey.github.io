@@ -3,15 +3,14 @@ import Base from '../layouts/Base.astro';
 import { LINKS, SITE } from '../config/site';
 ---
 <Base title="CV & Contact" description="Download the academic CV of Kyounglim Cho and find contact links.">
-  <header class="page-head">
-    <p class="eyebrow">CV &amp; contact</p>
+  <header>
     <h1>CV &amp; contact</h1>
     <p>The PDF is the web version of my academic CV. The version submitted with applications may include additional contact details.</p>
   </header>
 
-  <div class="grid two">
-    <section class="card" aria-labelledby="cv-h">
-      <h2 id="cv-h" style="font-size:1.3rem">Academic CV</h2>
+  <div>
+    <section aria-labelledby="cv-h">
+      <h2 id="cv-h">Academic CV</h2>
       <p>Education, professional experience, projects, awards, certifications, and skills on two pages.</p>
       <div class="btn-row" style="margin-top:0">
         <a class="btn primary" href={LINKS.cv} data-loc="cv-page">
@@ -21,8 +20,8 @@ import { LINKS, SITE } from '../config/site';
       </div>
     </section>
 
-    <section class="card" aria-labelledby="ct-h">
-      <h2 id="ct-h" style="font-size:1.3rem">Contact</h2>
+    <section aria-labelledby="ct-h">
+      <h2 id="ct-h">Contact</h2>
       <dl class="kv">
         <dt>Email</dt><dd><a href={`mailto:${LINKS.email}`} data-loc="cv-page">{LINKS.email}</a></dd>
         <dt>GitHub</dt><dd><a href={LINKS.github} rel="noopener" data-loc="cv-page">{LINKS.github.replace('https://', '')}</a></dd>

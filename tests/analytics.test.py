@@ -77,7 +77,7 @@ async def main():
 
         # 4. GitHub profile, email, contact
         await pg.evaluate("document.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>e.preventDefault()))")
-        await pg.locator('a[data-loc="hero"][href="https://github.com/Kyounglim-Joey"]').click()
+        await pg.locator('aside a[data-loc="sidebar"][href="https://github.com/Kyounglim-Joey"]').click()
         await pg.locator('a[data-loc="home-cta"][href^="mailto:"]').click()
         await pg.locator('a[data-loc="home-cta"][href="/cv/"]').click()
         ent = await log(pg)

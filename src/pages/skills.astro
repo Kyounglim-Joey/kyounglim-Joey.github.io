@@ -3,23 +3,16 @@ import Base from '../layouts/Base.astro';
 import { skills, certifications, languages } from '../data/content';
 ---
 <Base title="Skills & Certifications" description="Technical skills grouped by area, with where each was used, plus certifications and languages.">
-  <header class="page-head">
-    <p class="eyebrow">Skills &amp; certifications</p>
+  <header>
     <h1>Skills &amp; certifications</h1>
-    <p>Grouped by area, with where each was used. No self-rated proficiency scores — the evidence is in the experience and project pages.</p>
+    <p>Grouped by area, with where I used each one.</p>
   </header>
 
   <section aria-labelledby="sk">
-    <h2 id="sk" class="visually-hidden">Technical skills</h2>
-    <div class="grid two">
-      {skills.map((s) => (
-        <div class="card reveal">
-          <h3 style="font-family:var(--font-sans);font-size:1.05rem">{s.group}</h3>
-          <ul class="tags" style="margin-bottom:.8rem">{s.items.map((i) => <li>{i}</li>)}</ul>
-          <p class="muted" style="margin:0;font-size:.88rem">Used in: {s.evidence}</p>
-        </div>
-      ))}
-    </div>
+    <h2 id="sk">Technical skills</h2>
+    <dl class="kv">
+      {skills.map((s) => (<><dt>{s.group}</dt><dd>{s.items.join(', ')}<br /><small class="muted">Used in: {s.evidence}</small></dd></>))}
+    </dl>
   </section>
 
   <section aria-labelledby="cert">

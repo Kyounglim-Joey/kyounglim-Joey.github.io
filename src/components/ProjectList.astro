@@ -1,0 +1,25 @@
+---
+import type { Project } from '../data/content';
+interface Props { items: Project[]; level?: 'h2' | 'h3' }
+const { items, level = 'h3' } = Astro.props;
+const H = level;
+---
+<ul class="plist">
+  {items.map((p) => (
+    <li>
+      <a class="thumb" href={`/projects/${p.slug}/`} tabindex="-1" aria-hidden="true" data-loc="project-thumb">
+        {p.thumb && <img src={p.thumb} alt="" width="480" height="360" loading="lazy" decoding="async" />}
+      </a>
+      <div>
+        <H><a href={`/projects/${p.slug}/`} data-loc="project-list">{p.title}</a></H>
+        <div class="meta">{p.team.replace(', K-Digital Training program', '')} · {p.role} · {p.dates}</div>
+        <p>{p.short}</p>
+        {p.result && <p class="result"><mark>{p.result}</mark></p>}
+        <div class="links">
+          <a href={`/projects/${p.slug}/`} data-loc="project-list">Details</a>
+          <a href={p.repo} rel="noopener" data-project={p.name} data-loc="project-list">Code</a>
+        </div>
+      </div>
+    </li>
+  ))}
+</ul>
